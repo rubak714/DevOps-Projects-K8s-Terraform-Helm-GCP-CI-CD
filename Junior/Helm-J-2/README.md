@@ -3,7 +3,7 @@
 *   **Use Case:** Given a simple Helm chart (provided in folder: `/Junior/Helm-J-2/prerequisites/helm-chart/`), modify the `deployment.yaml` template to add an additional label `app.kubernetes.io/managed-by: helm` to the Pods.
 *   **Verification:** Is the label correctly added in the rendered manifest (`helm template .`)?
 *   **Solution:** Place in: `/Junior/Helm-J-2/solution_deployment.yaml` (showing the modified template)
-*   **Prerequisites:** See files in: `/Junior/Helm-J-2/prerequisites/helm-chart/`
+*   **Prerequisites:** See files in : `/Junior/Helm-J-2/prerequisites/helm-chart/`
 
 ---
 
