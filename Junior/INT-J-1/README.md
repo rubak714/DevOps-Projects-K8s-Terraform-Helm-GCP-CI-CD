@@ -164,13 +164,8 @@ gcloud storage cat "$(terraform output -raw settings_url)"
 
 ## 3. Local Terraform Results
 
-<p align="center">
-  <img src="C:/Users/rubai/OneDrive/Desktop/git-DB/db_ms_junior_solutions/Junior/INT-J-1/solution_terraform/results1.png" alt="Terraform Result 1" width="600" />
-</p>
-
-<p align="center">
-  <img src="C:/Users/rubai/OneDrive/Desktop/git-DB/db_ms_junior_solutions/Junior/INT-J-1/solution_terraform/results2.png" alt="Terraform Result 2" width="600" />
-</p>
+![Terraform Output 1](Junior/INT-J-1/solution_terraform/results1.png)
+![Terraform Output 1](Junior/INT-J-1/solution_terraform/results2.png)
 ---
 
 ## 4. Helm chart - injected GREETING\_MESSAGE env var
@@ -230,11 +225,10 @@ service:
 
 **File:** `templates/_helpers.tpl`
 
-```markdown
 <details>
 <summary> Click here to expand _helpers.tpl</summary>
 
-```yaml
+```gotemplate
 {{/* vim: set filetype=mustache: */}}
 {{/* Expand the name of the chart. */}}
 {{- define "simple-config-app.name" -}}
@@ -286,11 +280,9 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 ```
 </details>
-```
 
 **File:** `templates/deployment.yaml`
 
-```markdown
 <details>
 <summary> Click here to expand Deployment.yaml</summary>
 
@@ -366,7 +358,7 @@ spec:
       {{- end }}
 ```
 </details>
-```
+
 ---
 
 ## 5. Running Helm Commands Locally after Setting up the Chart
@@ -609,9 +601,7 @@ jobs:
 
 ## 9. GCP Output
 
-<p align="center">
-  <img src="C:/Users/rubai/OneDrive/Desktop/git-DB/db_ms_junior_solutions/Junior/INT-J-1/bucket_creation.png" alt="GCP Output" width="600" />
-</p>
+![GCP Output](Junior/INT-J-1/bucket_creation.png)
 
 ## 10. Final Bash Commands
 
