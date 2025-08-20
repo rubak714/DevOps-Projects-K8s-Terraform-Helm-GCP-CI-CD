@@ -173,7 +173,7 @@ gcloud storage cat "$(terraform output -raw settings_url)"
 </p>
 ---
 
-## 4. Helm chart — injected GREETING\_MESSAGE env var
+## 4. Helm chart - injected GREETING\_MESSAGE env var
 
 **File:** `Chart.yaml`
 
