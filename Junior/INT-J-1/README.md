@@ -164,8 +164,9 @@ gcloud storage cat "$(terraform output -raw settings_url)"
 
 ## 3. Local Terraform Results
 
-![Terraform Output 1](./Junior/INT-J-1/solution_terraform/results1.png)
-![Terraform Output 1](./Junior/INT-J-1/solution_terraform/results2.png)
+![Terraform Output 1](./solution_terraform/results1.png)
+![Terraform Output 2](./solution_terraform/results2.png)
+
 ---
 
 ## 4. Helm chart - injected GREETING\_MESSAGE env var
@@ -601,7 +602,7 @@ jobs:
 
 ## 9. GCP Output
 
-![GCP Output](./Junior/INT-J-1/bucket_creation.png)
+![GCP Output](bucket_creation.png)
 
 ## 10. Final Bash Commands
 
