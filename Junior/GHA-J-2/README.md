@@ -3,7 +3,7 @@
 *   **Use Case:** Create a workflow that triggers on a push to any branch named `feature/*`. Use the provided `Dockerfile` (located in Drive: `/Junior/GHA-J-2/prerequisites/`) to build a Docker image. The image does *not* need to be pushed to a registry.
 *   **Verification:** Does the workflow trigger on feature branches? Does the Docker build step succeed?
 *   **Solution:** Place in: `/Junior/GHA-J-2/solution.yml`
-*   **Prerequisites:** See files in: `/Junior/GHA-J-2/prerequisites/`
+*   **Prerequisites:** See files in : `/Junior/GHA-J-2/prerequisites/`
 
 ---
 
