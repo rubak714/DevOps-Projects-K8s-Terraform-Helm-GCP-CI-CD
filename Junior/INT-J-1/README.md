@@ -618,18 +618,13 @@ jobs:
 ```bash
 cd ~/OneDrive/Desktop/DB/solutions/Junior/
 
-# which branch
-git branch
-
 git fetch origin
-git checkout -b main origin/main
 
-# switching to feature branch
+# switching if needed to feature branch by following
 # feature/INT-J-1
 git checkout -b feature/GHA-J-2
 git checkout feature/GHA-J-2
 git push -u origin feature/GHA-J-2
-git checkout feature/INT-J-1 -- GHA-J-2
 
 git checkout main
 # staged all changes
