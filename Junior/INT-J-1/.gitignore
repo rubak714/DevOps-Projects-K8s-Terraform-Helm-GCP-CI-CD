@@ -1,0 +1,24 @@
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/crash.log
+**/*.tfvars
+**/override.tf
+**/override.tf.json
+**/*_override.tf
+**/*_override.tf.json
+
+# Sensitive files
+*.pem
+*.key
+*.p12
+*.json
+!nonsecret-example.json  
+
+# Helm render output (optional)
+**/rendered.yaml
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

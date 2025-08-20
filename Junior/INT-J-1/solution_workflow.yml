@@ -1,0 +1,103 @@
+name: INT-J-1 — Terraform + Helm.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ] # trigger on main
+    paths:
+      - "Junior/INT-J-1/**"
+      - ".github/workflows/int-j-1.yml"
+
+permissions:
+  id-token: write          # needed for WIF
+  contents: read
+
+env:
+  # single source of truth for greeting used by both Terraform and Helm
+  GREETING_MESSAGE: "Hello from Terraform!"
+  TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+ # directories
+  TF_DIR: ./Junior/INT-J-1/solution_terraform
+  HELM_DIR: ./Junior/INT-J-1/solution_helm/helm-chart
+  RENDERED: ./Junior/INT-J-1/solution_helm/helm-chart/rendered.yaml
+
+  # TF_VAR_region: "europe-west3"        # will uncomment, if override the default
+  # TF_VAR_bucket_location: "EU"         # will uncomment, if override the default
+
+jobs:
+  terraform-helm-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # or, 
+      # Workload Identity Federation auth
+      # other option of hardcoding values here:
+      #   workload_identity_provider: projects/1015457000631/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+      #   service_account: int-j-1@stable-healer-418019.iam.gserviceaccount.com
+
+      # Authenticating to GCP (Workload Identity Federation)
+      - name: Auth to GCP (WIF)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
+          create_credentials_file: true   # important 
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      # Terraform init and apply
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # Making TF_VAR_greeting_message available to all following steps
+      - name: Export TF_VAR_greeting_message
+        run: echo "TF_VAR_greeting_message=${GREETING_MESSAGE}" >> "$GITHUB_ENV"
+
+      - name: Terraform init
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          terraform -version
+          terraform init -input=false -lockfile=readonly
+
+      - name: Terraform Validate and Plan (produces tfplan)
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          terraform validate
+          terraform plan -input=false -no-color -out=tfplan
+
+      - name: Terraform Apply ( uses tfplan and creates bucket + config/settings.txt)
+        if: github.ref == 'refs/heads/main'
+        working-directory: ${{ env.TF_DIR }}
+        run: terraform apply -auto-approve -input=false -no-color tfplan
+
+      # Helm lint and template
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+
+      - name: Helm lint
+        working-directory: ${{ env.HELM_DIR }}
+        run: helm lint .
+
+      - name: Helm template with GREETING_MESSAGE
+        working-directory: ${{ env.HELM_DIR }}
+        run: |
+          helm template demo . \
+          --set env.GREETING_MESSAGE="${{ env.GREETING_MESSAGE }}" \
+          > rendered.yaml
+
+      - name: Verify GREETING_MESSAGE in rendered manifest
+        working-directory: ${{ env.HELM_DIR }}
+        run: |
+          grep -q 'name: GREETING_MESSAGE' rendered.yaml
+          grep -q "value: \"${{ env.GREETING_MESSAGE }}\"" rendered.yaml
+
+      - name: Upload rendered manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-manifests
+          path: ${{ env.RENDERED }}
+          if-no-files-found: error

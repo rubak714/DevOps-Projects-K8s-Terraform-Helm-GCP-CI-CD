@@ -1,0 +1,39 @@
+# Default values for simple-config-app (Prerequisite for INT-J-1).
+replicaCount: 1
+
+image:
+  repository: nginx # Using Nginx as a placeholder container
+  pullPolicy: IfNotPresent
+  tag: "1.25-alpine"
+
+# The greeting message is expected, provide a default or override via --set
+# old greeting: "Default Greeting from values.yaml" #the old one, given
+
+# the greeting message is expected by the Helm chart as an environment variable.
+# previously, it was hardcoded in values.yaml ("Default Greeting from values.yaml")
+# but here, passing it via an environment variable (GREETING_MESSAGE) because:
+#   *. the same value can be set once in the GitHub Actions workflow and flow into both Terraform and Helm.
+#   *. it can be overriden easily at deploy time without editing the chart files.
+env:
+  GREETING_MESSAGE: "Ola..Hello..from values.yaml"  # will be overridden by the workflow later
+
+# Standard values below (can be simplified if needed)
+imagePullSecrets: []
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+securityContext: {}
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+
