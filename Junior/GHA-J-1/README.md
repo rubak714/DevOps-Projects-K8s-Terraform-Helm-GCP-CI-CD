@@ -20,7 +20,7 @@ Junior/GHA-J-1/
 
 ## Step-by-Step Execution
 
-1. ## Prepared the workflow file
+## 1. Prepared the workflow file
    - Wrote `solution.yml` inside `Junior/GHA-J-1/` to define the workflow logic.
 
 ```yaml
@@ -53,7 +53,7 @@ jobs:
 ```
 ---
 
-2. ## Placed a copy in GitHub's workflow directory to execute it
+## 2. Placed a copy in GitHub's workflow directory to execute it
 
 ```
 .github/workflows/gha-j-1.yml
@@ -61,7 +61,7 @@ jobs:
 
 ---
 
-3. ## Committed and pushed to `main`:
+## 3. Committed and pushed to `main`:
 
 ```bash
 git add Junior/GHA-J-1/solution.yml .github/workflows/gha-j-1.yml
@@ -70,14 +70,14 @@ git push origin main
 ```
 ---
 
-4. ## Checked on the **GitHub Actions tab**. The workflow run named below is seen:
+## 4. Checked on the **GitHub Actions tab**. The workflow run named below is seen:
 
 ```
 GHA-J-1 — Simple CI
 ```
 ---
 
-5. ## Verified the output:
+## 5. Verified the output:
    In the **Print message** step, it is seen as:
 
 ```
