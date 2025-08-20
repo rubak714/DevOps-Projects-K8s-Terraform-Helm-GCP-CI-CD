@@ -1,5 +1,4 @@
-
-**Task (Helm-J-1): Install Existing Chart (Simulated)**
+# Task (Helm-J-1): Install Existing Chart (Simulated)
 
 *   **Use Case:** Write a Helm command (or a small script) to simulate the installation of the official `bitnami/nginx` chart into a namespace named `webserver`. Override the `service.type` to `LoadBalancer`. Document the command in your main `README.md`.
 *   **Verification:** Is the Helm command correct? Is the value correctly overridden? Is the command documented?
@@ -7,11 +6,9 @@
 
 --- 
 
-# Solutions:
+# *Solutions: Helm-J-1 > Installed bitnami/nginx into `webserver` (simulated)*
 
-## Helm-J-1: Installed bitnami/nginx into `webserver` (simulated)
-
-**Project Layout**
+## Task Layout
 
 ```
 Junior/Helm-J-1/                
@@ -20,24 +17,24 @@ Junior/Helm-J-1/
 
 ---
 
-# Step-by-Step Execution (kubectl, Helm and Minikube via curl)
+## Step-by-Step Execution (kubectl, Helm and Minikube via curl)
 
-### 1. Created a tools folder
+## 1. Created a tools folder
 
 ```bash
-mkdir -p "$HOME/kubetools"
-cd "$HOME/kubetools"
+mkdir -p "C:/Users/rubai/OneDrive/Desktop/kubetools"
+cd "C:/Users/rubai/OneDrive/Desktop/kubetools"
 ```
 ---
 
-### 2. Installed kubectl
+## 2. Installed kubectl
 
 ```bash
 curl -LO "https://dl.k8s.io/release/v1.31.0/bin/windows/amd64/kubectl.exe"
 ```
 ---
 
-### 3. Installed Helm
+## 3. Installed Helm
 
 ```bash
 curl -LO "https://get.helm.sh/helm-v3.14.4-windows-amd64.zip"
@@ -47,7 +44,7 @@ rm -rf windows-amd64 helm-v3.14.4-windows-amd64.zip
 ```
 ---
 
-### 4. Installed Minikube (for local cluster)
+## 4. Installed Minikube (for local cluster)
 
 ```bash
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-windows-amd64.exe
@@ -55,13 +52,13 @@ mv minikube-windows-amd64.exe minikube.exe
 ```
 ---
 
-### 5. Added to PATH
+## 5. Added to PATH
 
-* After going to **Environment Variables** → Edited **User variables** → Added `$HOME/kubetools`.
+* After going to **Environment Variables** → Edited **System variables** → Added path of `/kubetools`.
 
 ---
 
-### 6. Verified Installations
+## 6. Verified Installations
 
 ```bash
 kubectl version --client
@@ -70,7 +67,7 @@ minikube version
 ```
 ---
 
-### 7. Added Bitnami repo and update (Found error while running below commands)
+## 7. Added Bitnami repo and update (Found error while running below commands)
 
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -98,7 +95,7 @@ kubectl get nodes
 ```
 ---
 
-### 9. Re-run Helm command and Simulated Install of `bitnami/nginx` into `webserver` namespace
+## 9. Re-run Helm command and Simulated Install of `bitnami/nginx` into `webserver` namespace
 
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -113,10 +110,10 @@ kubectl get svc -n webserver
 ```
 ---
 
-My Service is type: LoadBalancer, but my cluster was not providing a cloud based load balancer. 
-And these fixes depend on where I am running the cluster. As this was running on **minikube** , so I used `minikube tunnel`.
+The Service is type: LoadBalancer, but my cluster was not providing a cloud based load balancer. 
+And these fixes usually depend on where I am running the cluster. As this was running on **minikube** , so I used `minikube tunnel`.
 
-### 10. Deployed something and exposed as LoadBalancer
+## 10. Deployed something and exposed as LoadBalancer
 
 ```bash
 kubectl create deployment hello --image=nginx:1.25-alpine
@@ -125,14 +122,14 @@ kubectl get svc hello
 ```
 ---
 
-### 11. Ran the tunnel in an elevated PowerShell and kept it open
+## 11. Ran the tunnel in an elevated PowerShell and kept it open
 
 ```bash
-Start-Process -Verb RunAs powershell -ArgumentList '-NoExit','-Command','minikube tunnel'
+Start-Process -Verb RunAs powershell -ArgumentList '-NoExit','-Command', 'minikube tunnel'
 ```
 ---
 
-### 12. Verified on the Service (Load Balancer)
+## 12. Verified on the Service (Load Balancer)
 
 ```bash
 kubectl get svc hello -w
@@ -149,7 +146,7 @@ nginx   LoadBalancer   10.107.181.78   127.0.0.1     80:30663/TCP,443:32544/TCP 
 ```
 ---
 
-### 13. Validation
+## 13. Validation
 
 **Checked valid keys in chart values:**
 
@@ -164,7 +161,8 @@ helm get values -n webserver nginx
 ```
 ---
 
-### 14. Final Results
+## 14. Final Results
+
 ```bash
 rubai@Rubaiya-2023 MINGW64 ~/OneDrive/Desktop/DB/solutions/Junior/Helm-J-1
 $ helm show values bitnami/nginx | grep -n "service:"
