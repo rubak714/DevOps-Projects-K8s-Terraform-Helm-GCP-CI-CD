@@ -10,6 +10,7 @@ on:                          # EVENTS block starts
     paths:
       - "Junior/GHA-J-2/**"
       - ".github/workflows/gha-j-2.yml"
+
 # EVENTS block ends
 
 jobs:                         # JOBS block starts
