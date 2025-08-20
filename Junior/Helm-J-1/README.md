@@ -17,7 +17,7 @@ Junior/Helm-J-1/
 
 ---
 
-## Step-by-Step Execution (kubectl, Helm and Minikube via curl)
+# Step-by-Step Execution (kubectl, Helm and Minikube via curl)
 
 ## 1. Created a tools folder
 
