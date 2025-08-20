@@ -15,7 +15,7 @@ on:
         - ".github/workflows/gha-j-1.yml" 
 
 jobs:
-  Simple CI:
+  Simple-CI:
     runs-on: ubuntu-latest
     steps:
       # Standard practice to check out the repo
