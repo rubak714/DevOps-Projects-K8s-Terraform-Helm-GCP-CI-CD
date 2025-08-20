@@ -1,10 +1,10 @@
-## Task (TF-J-1): Create GCS Bucket
+# Task (TF-J-1): Create GCS Bucket
 
 *   **Use Case:** Write Terraform code (`main.tf`) to create a Google Cloud Storage (GCS) bucket in a specific region (e.g., `europe-west3`). The bucket name should be unique (e.g., by appending a random ID or using the project ID).
 *   **Verification:** Is the Terraform code valid? Does it define a GCS bucket with the required attributes?
 *   **Solution:** Place in: `/Junior/TF-J-1/solution_main.tf`
 
-## Task (TF-J-2): Use Terraform Output**
+# Task (TF-J-2): Use Terraform Output**
 
 *   **Use Case:** Extend the Terraform code from TF-J-1 to output the name of the created GCS bucket using an `output` variable.
 *   **Verification:** Does `terraform output bucket_name` display the correct bucket name after applying?
