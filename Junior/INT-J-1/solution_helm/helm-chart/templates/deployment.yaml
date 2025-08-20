@@ -37,7 +37,7 @@ spec:
           env:
             - name: GREETING_MESSAGE
               # This value is expected to be provided by the deployment process (e.g., GitHub Actions)
-              # It uses the value from values.yaml as a default or if overridden.
+              # It uses the value from values.yaml  as a default or if overridden.
               value: {{ .Values.env.GREETING_MESSAGE | quote }}
 
           ports:
