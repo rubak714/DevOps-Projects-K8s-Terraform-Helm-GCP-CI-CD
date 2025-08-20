@@ -610,10 +610,10 @@ jobs:
 ## 9. GCP Output
 
 <p align="center">
-  <img src="C:/Users/rubai/OneDrive/Desktop/git-DB/db_ms_junior_solutions/bucket_creation.png" alt="GCP Output" width="600" />
+  <img src="C:/Users/rubai/OneDrive/Desktop/git-DB/db_ms_junior_solutions/Junior/INT-J-1/bucket_creation.png" alt="GCP Output" width="600" />
 </p>
 
-## 9. Final Bash Commands
+## 10. Final Bash Commands
 
 ```bash
 cd ~/OneDrive/Desktop/DB/solutions/Junior/
