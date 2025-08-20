@@ -58,15 +58,12 @@ DB-Solutions/
 ```
 ## Tasks Overview
 
-```markdown
-
 - [GHA-J-1](Junior/GHA-J-1/README.md)
 - [GHA-J-2](Junior/GHA-J-2/README.md)
 - [INT-J-1](Junior/INT-J-1/README.md)
 - [Helm-J-1](Junior/Helm-J-1/README.md)
 - [Helm-J-2](Junior/Helm-J-2/README.md)
 - [TF-J-1](Junior/TF-J-1/README.md)
-```
 
 ## Github Repository Setup
 ```bash
