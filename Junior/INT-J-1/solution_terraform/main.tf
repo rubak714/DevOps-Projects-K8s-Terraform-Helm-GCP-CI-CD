@@ -23,7 +23,7 @@ resource "google_storage_bucket" "config" {
   force_destroy               = true
 }
 
-# creating a single text object (file) inside the bucket with the greeting message
+#  creating a single text object (file) inside the bucket with the greeting message
 # "settings" is terraform resource label
 
 resource "google_storage_bucket_object" "settings" {
