@@ -24,7 +24,7 @@ Junior/Helm-J-2/
 ```
 ---
 
-## Step-by-Step Execution
+# Step-by-Step Execution
 
 ## 1. Overview of the Task
 
