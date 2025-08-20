@@ -59,7 +59,7 @@ DB-Solutions/
 ## Tasks Overview
 
 - [GHA-J-1](Junior/GHA-J-1/README.md)
-- [GHA-J-2](Junior/GHA-J-2/README.md)
+- [GHA-J-2](https://github.com/rubak714/DB-Solutions/blob/feature/GHA-J-2/Junior/GHA-J-2/README.md)
 - [INT-J-1](Junior/INT-J-1/README.md)
 - [Helm-J-1](Junior/Helm-J-1/README.md)
 - [Helm-J-2](Junior/Helm-J-2/README.md)
