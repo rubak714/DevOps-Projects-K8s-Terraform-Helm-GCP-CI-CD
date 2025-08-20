@@ -74,7 +74,7 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         run: terraform apply -auto-approve -input=false -no-color tfplan
 
-      # Helm lint and template
+      # Helm lint and templates
       - name: Setup Helm
         uses: azure/setup-helm@v4
 
