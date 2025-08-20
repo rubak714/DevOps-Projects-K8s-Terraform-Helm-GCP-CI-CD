@@ -165,11 +165,11 @@ gcloud storage cat "$(terraform output -raw settings_url)"
 ## 3. Local Terraform Results
 
 <p align="center">
-  <img src="C:/Users/rubai/OneDrive/Desktop/DB/solutions/Junior/INT-J-1/solution_terraform/results1.png" alt="Terraform Result 1" width="600" />
+  <img src="C:/Users/rubai/OneDrive/Desktop/git-DB/db_ms_junior_solutions/Junior/INT-J-1/solution_terraform/results1.png" alt="Terraform Result 1" width="600" />
 </p>
 
 <p align="center">
-  <img src="C:/Users/rubai/OneDrive/Desktop/DB/solutions/Junior/INT-J-1/solution_terraform/results2.png" alt="Terraform Result 2" width="600" />
+  <img src="C:/Users/rubai/OneDrive/Desktop/git-DB/db_ms_junior_solutions/Junior/INT-J-1/solution_terraform/results2.png" alt="Terraform Result 2" width="600" />
 </p>
 ---
 
@@ -606,6 +606,12 @@ jobs:
           if-no-files-found: error
 ```
 ---
+
+## 9. GCP Output
+
+<p align="center">
+  <img src="C:/Users/rubai/OneDrive/Desktop/git-DB/db_ms_junior_solutions/bucket_creation.png" alt="GCP Output" width="600" />
+</p>
 
 ## 9. Final Bash Commands
 
