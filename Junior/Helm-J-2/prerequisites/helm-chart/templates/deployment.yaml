@@ -1,5 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
+
 {{/* Top-level resource labels */}}
 metadata:
   name: {{ include "simple-nginx-chart.fullname" . }}
