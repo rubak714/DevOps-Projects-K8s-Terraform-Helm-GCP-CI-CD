@@ -1,0 +1,31 @@
+# GHA-J-2 - Docker Build on feature branches
+name: GHA-J-2 — Build Docker Image from Dockerfile
+
+on:                          # EVENTS block starts
+  workflow_dispatch:
+  push:
+    branches:
+      - "feature/*"          # trigger on any branch named feature/<name>
+    paths:
+      - "Junior/GHA-J-2/**"
+      - ".github/workflows/gha-j-2.yml"
+# EVENTS block ends
+
+jobs:                         # JOBS block starts
+  build-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Junior/GHA-J-2/prerequisites
+    steps:                    # STEPS block starts
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build image (no push)
+        run: docker build -t gha-j-2:${{ github.sha }} . # This tags the image with the commit SHA so each build has a unique tag. It helps identify which commit produced which image.
+
+      - name: Verify image exists
+        run: docker images | grep gha-j-2 
+
+    # STEPS block ends
+# JOBS block ends
