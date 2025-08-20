@@ -125,7 +125,7 @@ kubectl get svc hello
 ## 11. Ran the tunnel in an elevated PowerShell and kept it open
 
 ```bash
-Start-Process -Verb RunAs powershell -ArgumentList '-NoExit','-Command','minikube tunnel'
+Start-Process -Verb RunAs powershell -ArgumentList '-NoExit','-Command', 'minikube tunnel'
 ```
 ---
 
