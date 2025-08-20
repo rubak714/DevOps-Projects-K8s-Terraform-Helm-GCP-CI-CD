@@ -3,7 +3,7 @@ name: INT-J-1 — Terraform + Helm.
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ] # trigger on main
+    branches: [ "main" ] # trigger on > main
     paths:
       - "Junior/INT-J-1/**"
       - ".github/workflows/int-j-1.yml"
