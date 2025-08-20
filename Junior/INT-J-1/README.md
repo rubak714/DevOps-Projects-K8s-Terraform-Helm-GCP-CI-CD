@@ -34,7 +34,7 @@ Junior/INT-J-1/                  # Task folder for INT-J-1 (on feature branch)
 
 ---
 
-## Step-by-Step Execution 
+# Step-by-Step Execution 
 
 ## 1. Terraform — created GCS object with the greeting text
 
