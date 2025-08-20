@@ -1,4 +1,4 @@
-# Task (INT-J-1): Terraform-Managed Configuration for Helm**
+# Task (INT-J-1): Terraform-Managed Configuration for Helm
 
 *   **Use Case:** You want to centrally manage a configuration setting for a Helm application. Create Terraform code that creates a single object in a GCS bucket (e.g., a simple text file `config/settings.txt` with the content "Hello from Terraform!"). Then, create a simple Helm chart (provided in folder: `/Junior/INT-J-1/prerequisites/helm-chart/`) that expects this configuration value to be available as an environment variable `GREETING_MESSAGE` in the container (the value doesn't need to be dynamically read from GCS in the test; referencing it in the Deployment is sufficient). Finally, create a GitHub Actions workflow that:
     1.  Initializes and applies the Terraform code to ensure the GCS object exists.
