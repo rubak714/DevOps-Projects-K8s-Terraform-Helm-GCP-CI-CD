@@ -16,7 +16,7 @@
 *.json
 !nonsecret-example.json  
 
-# Helm render output (optional)
+# Helm render output 
 **/rendered.yaml
 
 # OS/editor noise
