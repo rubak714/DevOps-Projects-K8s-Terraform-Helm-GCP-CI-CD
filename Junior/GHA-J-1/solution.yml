@@ -2,7 +2,7 @@
 # GHA-J-1: Simple CI Workflow
 # Verification:
 # - Trigger: on push to 'main' only 
-# - Syntax: valid YAML for GitHub Actions
+# - Syntax: valid YAML found for GitHub Actions
 # - Message: prints "Workflow triggered for main branch"
 
 name: GHA-J-1 > Simple CI
