@@ -23,7 +23,7 @@ Junior/GHA-J-2/
 
 ---
 
-## Step-by-Step Execution
+# Step-by-Step Execution
 
 ## 1. Prepared the workflow file
   - Wrote `solution.yml` inside `Junior/GHA-J-1/` to define the workflow logic.
