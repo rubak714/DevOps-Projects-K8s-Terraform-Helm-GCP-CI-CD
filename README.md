@@ -114,10 +114,10 @@ git push -u origin feature/GHA-J-2
     ```
 
   - `Helm-J-2` with updated `deployment.yaml` 
-  # Verification (Helm-J-2):
-    # - Yes: added app.kubernetes.io/managed-by: "helm" under spec.template.metadata.labels (Pod level).
-    # - Yes: `helm template .` shows the label in the rendered Deployment manifest.
-    # - In short, added Pod label, bumped chart to 0.1.1, aligned appVersion to 1.25-alpine.
+  **Verification (Helm-J-2):**
+    - Yes: added app.kubernetes.io/managed-by: "helm" under spec.template.metadata.labels (Pod level).
+    - Yes: `helm template .` shows the label in the rendered Deployment manifest.
+    - In short, added Pod label, bumped chart to 0.1.1, aligned appVersion to 1.25-alpine.
 
   - `INT-J-1/solution_helm/helm-chart/` with a simple chart that exposes `GREETING_MESSAGE`
 
