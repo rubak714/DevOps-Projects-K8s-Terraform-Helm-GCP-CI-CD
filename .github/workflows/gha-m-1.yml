@@ -29,7 +29,6 @@ jobs:
       GAR_REGION: "europe-west3"
       GAR_REPO: "apps"
       IMAGE_NAME: "gha-m-1-app"
-      IMAGE_URI: "${{ github.job }}-${{ github.run_id }}"
       DOCKERFILE_DIR: "Mid-Level/GHA-M-1/prerequisites"
     steps:
       - name: Checkout repo
@@ -43,6 +42,23 @@ jobs:
 
       - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v2
+
+      - name: Enable required APIs 
+        run: |
+          gcloud config set project "$PROJECT_ID"
+          gcloud services enable artifactregistry.googleapis.com \
+            iamcredentials.googleapis.com iam.googleapis.com sts.googleapis.com
+
+      - name: Ensure GAR repository exists 
+        run: |
+          if ! gcloud artifacts repositories describe "$GAR_REPO" --location="$GAR_REGION" >/dev/null 2>&1; then
+            gcloud artifacts repositories create "$GAR_REPO" \
+              --repository-format=docker \
+              --location="$GAR_REGION" \
+              --description="Docker images for mid-level tasks"
+          else
+            echo "Repository $GAR_REPO already exists in $GAR_REGION"
+          fi
 
       - name: Configure Docker for GAR
         run: gcloud auth configure-docker $GAR_REGION-docker.pkg.dev --quiet
