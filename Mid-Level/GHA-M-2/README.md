@@ -137,7 +137,7 @@ git commit -m "Add GHA-M-2 Terraform Cloud plan/apply"
 git push origin feature/GHA-M-2
 ```
 
-Then, opened a PR to `main`.
+Then, opened a PR to `main` manually.
 
 ---
 
