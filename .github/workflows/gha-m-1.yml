@@ -42,12 +42,6 @@ jobs:
       - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Enable required APIs 
-        run: |
-          gcloud config set project "$PROJECT_ID"
-          gcloud services enable artifactregistry.googleapis.com \
-            iamcredentials.googleapis.com iam.googleapis.com sts.googleapis.com
-
       - name: Ensure GAR repository exists 
         run: |
           if ! gcloud artifacts repositories describe "$GAR_REPO" --location="$GAR_REGION" >/dev/null 2>&1; then
