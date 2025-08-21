@@ -37,7 +37,7 @@ Mid-Level/GHA-M-1/
 # /Mid-Level/GHA-M-1/solution.yml
 # GHA-M-1: CI/CD with Docker Push & Helm Deploy Trigger (simulation only)
 
-name: GHA-M-1 > CI/CD with Docker Push + Helm Deploy Trigger
+name: GHA-M-1 --- CI/CD with Docker Push + Helm Deploy Trigger
 
 on:
   workflow_dispatch:
@@ -122,7 +122,7 @@ jobs:
 
 ```bash
 git add Mid-Level/GHA-M-1/solution.yml .github/workflows/gha-m-1.yml
-git commit -m "Adding GHA-M-1 CI/CD workflow with Docker + Helm simulation"
+git commit -m "Add gha-m-1.yml GitHub Actions workflow for GHA-M-1 Task"
 git push origin main
 ```
 
@@ -131,7 +131,7 @@ git push origin main
 ## 4. Checked on the **GitHub Actions tab**. The workflow run named below is seen:
 
 ```
-GHA-M-1 > CI/CD with Docker Push + Helm Deploy Trigger
+GHA-M-1 --- CI/CD with Docker Push + Helm Deploy Trigger
 ```
 
 ---
