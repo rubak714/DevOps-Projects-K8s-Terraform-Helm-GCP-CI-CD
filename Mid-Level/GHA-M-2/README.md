@@ -60,7 +60,7 @@ Wrote `solution_workflow.yml` to run plan on PR and apply on merge to `main`. It
 # /Mid-Level/GHA-M-2/solution_workflow.yml
 # GHA-M-2: Terraform Plan/Apply Workflow with Terraform Cloud 
 # Verification:
-# - On a pull request to main > `terraform plan` works
+# - On a pull request/PR to main > `terraform plan` 
 # - On merge to main > executes `terraform apply -auto-approve`
 # - State is managed in Terraform Cloud backend
 
@@ -85,9 +85,9 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
     env:
-      TF_CLOUD_ORGANIZATION: "db-solutions-org"        
-      TF_WORKSPACE: "gha-m-2-workspace"           
-      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_CLOUD_ORGANIZATION: "db-solutions-org"        # TFC org
+      TF_WORKSPACE: "gha-m-2-workspace"                # TFC workspace
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}        # set in GitHub repo secrets
       TF_IN_AUTOMATION: "true"
     steps:
       - name: Checkout repo
