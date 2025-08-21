@@ -6,7 +6,7 @@
 
 ---
 
-# *Solutions: GHA-J-1 > Simple CI Workflow*
+# *Solutions: GHA-J-1 --- Simple CI Workflow*
 
 ## Task Layout
 
@@ -31,7 +31,7 @@ Junior/GHA-J-1/
 # - Syntax: valid YAML for GitHub Actions
 # - Message: prints "Workflow triggered for main branch"
 
-name: GHA-J-1 — Simple CI
+name: GHA-J-1 --- Simple CI
 
 on:
   push:
@@ -73,7 +73,7 @@ git push origin main
 ## 4. Checked on the **GitHub Actions tab**. The workflow run named below is seen:
 
 ```
-GHA-J-1 — Simple CI
+GHA-J-1 --- Simple CI
 ```
 ---
 
