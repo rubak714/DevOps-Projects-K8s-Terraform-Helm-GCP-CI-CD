@@ -116,7 +116,6 @@ jobs:
         working-directory: Mid-Level/GHA-M-2
         run: terraform apply -auto-approve -input=false
 ```
-
 ---
 
 ## 4. Placed a copy in GitHub's workflow directory
