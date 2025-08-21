@@ -4,7 +4,7 @@
 # Verification:
 # - On a pull request/PR to main > `terraform plan` 
 # - On merge to main > executes `terraform apply -auto-approve`
-# - State is managed in Terraform Cloud backend
+# - State > is managed in Terraform Cloud backend
 
 name: GHA-M-2 --- Terraform Plan + Apply with Terraform Cloud 
 
@@ -15,7 +15,7 @@ on:
       - "Mid-Level/GHA-M-2/**"
       - ".github/workflows/gha-m-2.yml"
   push:
-    branches: [ "main" ]
+    branches: [ "feature/gha-m-2" ]
     paths:
       - "Mid-Level/GHA-M-2/**"
       - ".github/workflows/gha-m-2.yml"
