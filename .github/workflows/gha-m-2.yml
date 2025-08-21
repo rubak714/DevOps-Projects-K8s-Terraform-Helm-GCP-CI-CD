@@ -9,13 +9,14 @@
 name: GHA-M-2 --- Terraform Plan + Apply with Terraform Cloud 
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ "main" ]
     paths:
       - "Mid-Level/GHA-M-2/**"
       - ".github/workflows/gha-m-2.yml"
   push:
-    branches: [ "feature/gha-m-2" ]
+    branches: [ "main" ]
     paths:
       - "Mid-Level/GHA-M-2/**"
       - ".github/workflows/gha-m-2.yml"
@@ -27,9 +28,7 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
     env:
-      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
       TF_IN_AUTOMATION: "true"
-      TF_CLI_CONFIG_FILE: $HOME/.terraformrc
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -38,18 +37,10 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.8.5
+          # injects TF Cloud token for app.terraform.io automatically
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Configure Terraform Cloud credentials
-        run: |
-          cat > "$TF_CLI_CONFIG_FILE" << 'EOF'
-          credentials "app.terraform.io" {
-            token = "${TF_API_TOKEN}"
-          }
-          EOF
-        env:
-          TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-
-      - name: Terraform Init
+      - name: Terraform Init (remote backend)
         working-directory: Mid-Level/GHA-M-2
         run: terraform init -input=false
 
@@ -57,12 +48,12 @@ jobs:
         working-directory: Mid-Level/GHA-M-2
         run: terraform validate
 
-      - name: Terraform Plan
+      - name: Terraform Plan (PRs into main)
         if: github.event_name == 'pull_request'
         working-directory: Mid-Level/GHA-M-2
         run: terraform plan -no-color -input=false
 
-      - name: Terraform Apply
+      - name: Terraform Apply (after merge to main)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         working-directory: Mid-Level/GHA-M-2
         run: terraform apply -auto-approve -input=false
