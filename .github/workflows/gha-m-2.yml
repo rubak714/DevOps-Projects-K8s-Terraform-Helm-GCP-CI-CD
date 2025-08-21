@@ -29,7 +29,7 @@ jobs:
     env:
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
       TF_IN_AUTOMATION: "true"
-      TF_CLI_CONFIG_FILE: ${{ runner.temp }}/.terraformrc
+      TF_CLI_CONFIG_FILE: $HOME/.terraformrc
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
