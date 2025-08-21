@@ -1,6 +1,5 @@
 # /Mid-Level/GHA-M-2/solution_workflow.yml
 # GHA-M-2: Terraform Plan/Apply Workflow with Terraform Cloud 
-
 # Verification:
 # - On a pull request/PR to main > `terraform plan` 
 # - On merge to main > executes `terraform apply -auto-approve`
