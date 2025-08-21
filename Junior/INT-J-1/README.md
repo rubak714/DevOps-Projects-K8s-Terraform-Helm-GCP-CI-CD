@@ -10,7 +10,7 @@
 
 ---
 
-# Solutions: INT-J-1 > Terraform + Helm + GitHub Actions 
+# Solutions: INT-J-1 --- Terraform + Helm + GitHub Actions 
 
 ## Task Layout
 
@@ -389,7 +389,7 @@ $ grep -n 'value: "Hello from Terraform!"' rendered.yaml
 
 ---
 
-## 7. GitHub Actions workflow — with Terraform apply, Helm lint, Helm template
+## 7. GitHub Actions workflow - with Terraform apply, Helm lint, Helm template
 
   -Terraform uses a random_id bucket name and writes config/settings.txt with var.greeting_message.
 
