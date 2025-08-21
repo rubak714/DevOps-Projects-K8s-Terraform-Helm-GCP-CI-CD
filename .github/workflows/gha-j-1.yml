@@ -1,4 +1,4 @@
-# /Junior/GHA-J-1/solution.yml
+# /Junior/GHA-J-1/gha-j-1.yml
 # GHA-J-1: Simple CI Workflow
 # Verification:
 # - Trigger: on push to 'main' only 
