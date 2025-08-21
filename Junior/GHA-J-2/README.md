@@ -7,7 +7,7 @@
 
 ---
 
-# *Solutions: GHA-J-2 > Simple Docker Build Workflow*
+# *Solutions: GHA-J-2 --- Simple Docker Build Workflow*
 
 ## Task Layout
 
@@ -31,7 +31,7 @@ Junior/GHA-J-2/
 ```yaml
 # GHA-J-2 - Docker Build on feature branches
 
-name: GHA-J-2 — Build Docker Image from Dockerfile
+name: GHA-J-2 --- Build Docker Image from Dockerfile
 
 on:                          # EVENTS block starts
   workflow_dispatch:
@@ -90,7 +90,7 @@ EXPOSE 80
 
 ```bash
 git add .github/workflows/gha-j-2.yml
-git commit -m "Adding GHA-J-2 workflow for building Docker image"
+git commit -m "Add GHA-J-2 workflow ....."
 git push origin feature/GHA-J-2
 ```
 ---
@@ -98,7 +98,7 @@ git push origin feature/GHA-J-2
 ## 4. Checked on the **GitHub Actions tab**. The workflow run named below was triggered on **feature** branch:
 
 ```
-GHA-J-2 — Build Docker Image from Dockerfile
+GHA-J-2 --- Build Docker Image from Dockerfile
 ```
 ---
 
