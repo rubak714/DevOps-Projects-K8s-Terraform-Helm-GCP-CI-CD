@@ -1,4 +1,7 @@
-name: INT-J-1 — Terraform + Helm.
+# /Junior/INT-J-1/int-j-1.yml
+# INT-J-1: INT-J-1 --- Terraform + Helm
+
+name: INT-J-1 --- Terraform + Helm.
 
 on:
   workflow_dispatch:
