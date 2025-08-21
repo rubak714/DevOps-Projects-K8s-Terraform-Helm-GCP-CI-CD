@@ -1,5 +1,6 @@
-# GHA-J-2 - Docker Build on feature branches
-name: GHA-J-2 — Build Docker Image from Dockerfile
+# GHA-J-2 --- Docker Build on feature branches
+
+name: GHA-J-2 --- Build Docker Image from Dockerfile
 
 on:                          # EVENTS block starts
   workflow_dispatch:
