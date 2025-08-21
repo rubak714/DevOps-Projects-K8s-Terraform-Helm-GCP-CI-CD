@@ -29,7 +29,7 @@ jobs:
     env:
       TF_CLOUD_ORGANIZATION: "db-solutions-org"        # TFC org
       TF_WORKSPACE: "gha-m-2-workspace"                # TFC workspace
-      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}        # set in GitHub repo secrets
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}        # set > in GitHub repo secrets
       TF_IN_AUTOMATION: "true"
     steps:
       - name: Checkout repo
