@@ -6,7 +6,7 @@
 # - Push: to Google Artifact Registry (GAR) with SHA tag
 # - Simulate: print helm upgrade command with image repo + SHA
 
-name: GHA-M-1 — CI/CD with Docker Push + Helm Deploy Trigger
+name: GHA-M-1 --- CI/CD with Docker Push + Helm Deploy Trigger
 
 on:
   workflow_dispatch:
