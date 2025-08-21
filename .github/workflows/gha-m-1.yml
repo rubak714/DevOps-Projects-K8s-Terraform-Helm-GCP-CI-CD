@@ -1,0 +1,69 @@
+# /Mid-Level/GHA-M-1/solution.yml
+# GHA-M-1: CI/CD with Docker Push & Helm Deploy Trigger (simulation only)
+# Verification:
+# - Trigger: on merge to 'main' branch
+# - Build: Dockerfile from /Mid-Level/GHA-M-1/prerequisites
+# - Push: to Google Artifact Registry (GAR) with SHA tag
+# - Simulate: print helm upgrade command with image repo + SHA
+
+name: GHA-M-1 > CI/CD with Docker Push + Helm Deploy Trigger
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "Mid-Level/GHA-M-1/**"
+      - ".github/workflows/gha-m-1.yml"
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  PROJECT_ID: "stable-healer-418019"
+  GAR_REGION: "europe-west3"              # adjust if needed
+  GAR_REPO:   "apps"                      # Artifact Registry repo
+  IMAGE_NAME: "gha-m-1-app"
+  IMAGE_URI:  "${{ env.GAR_REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE_NAME }}"
+  DOCKERFILE_DIR: "Mid-Level/GHA-M-1/prerequisites"
+
+jobs:
+  build-push-simulate-helm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud (WIF)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_WIF_SERVICE_ACCOUNT }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for GAR
+        run: gcloud auth configure-docker ${{ env.GAR_REGION }}-docker.pkg.dev --quiet
+
+      - name: Build Docker image
+        run: docker build -t "${IMAGE_URI}:sha-${GITHUB_SHA::8}" "${DOCKERFILE_DIR}"
+
+      - name: Push Docker image to GAR
+        run: docker push "${IMAGE_URI}:sha-${GITHUB_SHA::8}"
+
+      # simulation only: printing the helm command
+      # as no chart provided, so reference is a public chart 
+      - name: Simulate Helm deploy (echo only)
+        run: |
+          echo "helm upgrade --install gha-m-1 bitnami/nginx \
+            --set image.registry='${{ env.GAR_REGION }}-docker.pkg.dev' \
+            --set image.repository='${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE_NAME }}' \
+            --set image.tag='sha-${GITHUB_SHA::8}' \
+            --namespace default"
+
+      - name: Summary
+        run: |
+          echo "Built and pushed: ${IMAGE_URI}:sha-${GITHUB_SHA::8}"
+          echo "Simulated Helm command printed above (bitnami/nginx). No deployment performed."
