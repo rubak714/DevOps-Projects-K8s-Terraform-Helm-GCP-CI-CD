@@ -1,5 +1,6 @@
 # /Mid-Level/GHA-M-1/solution.yml
 # GHA-M-1: CI/CD with Docker Push & Helm Deploy Trigger (simulation only)
+
 # Verification:
 # - Trigger: on merge to 'main' branch
 # - Build: Dockerfile from /Mid-Level/GHA-M-1/prerequisites
