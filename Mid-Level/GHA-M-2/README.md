@@ -59,6 +59,7 @@ Wrote `solution_workflow.yml` to run plan on PR and apply on merge to `main`. It
 ```yaml
 # /Mid-Level/GHA-M-2/solution_workflow.yml
 # GHA-M-2: Terraform Plan/Apply Workflow with Terraform Cloud 
+
 # Verification:
 # - On a pull request/PR to main > `terraform plan` 
 # - On merge to main > executes `terraform apply -auto-approve`
@@ -73,7 +74,7 @@ on:
       - "Mid-Level/GHA-M-2/**"
       - ".github/workflows/gha-m-2.yml"
   push:
-    branches: [ "main" ]
+    branches: [ "feature/gha-m-2" ]
     paths:
       - "Mid-Level/GHA-M-2/**"
       - ".github/workflows/gha-m-2.yml"
@@ -133,7 +134,7 @@ This was required because GitHub Actions only executes files inside `.github/wor
 ```bash
 git add Mid-Level/GHA-M-2/solution_backend.tf Mid-Level/GHA-M-2/solution_workflow.yml .github/workflows/gha-m-2.yml
 git commit -m "Add GHA-M-2 Terraform Cloud plan/apply"
-git push origin feature/gha-m-2
+git push origin feature/GHA-M-2
 ```
 
 Then, opened a PR to `main`.
@@ -151,5 +152,4 @@ Then, opened a PR to `main`.
 ## Notes
 
 * Secret required: `TF_API_TOKEN` in GitHub → Settings → Secrets and variables → Actions.
-* Ensure the Terraform Cloud **workspace exists** and matches the backend `organization` and `workspaces.name` values.
-* Put your actual Terraform configuration files (e.g., `main.tf`, `variables.tf`) in `Mid-Level/GHA-M-2/` for plan/apply to have something to work on.
+* Ensured the Terraform Cloud **workspace exists** and matches the backend `organization` and `workspaces.name` values.
