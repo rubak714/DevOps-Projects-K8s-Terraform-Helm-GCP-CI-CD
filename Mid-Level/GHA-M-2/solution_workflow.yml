@@ -1,21 +1,21 @@
 # /Mid-Level/GHA-M-2/solution_workflow.yml
 # GHA-M-2: Terraform Plan/Apply Workflow with Terraform Cloud 
-
 # Verification:
 # - On a pull request/PR to main > `terraform plan` 
 # - On merge to main > executes `terraform apply -auto-approve`
-# - State is managed in Terraform Cloud backend
+# - State > is managed in Terraform Cloud backend
 
 name: GHA-M-2 --- Terraform Plan + Apply with Terraform Cloud 
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ "main" ]
     paths:
       - "Mid-Level/GHA-M-2/**"
       - ".github/workflows/gha-m-2.yml"
   push:
-    branches: [ "feature/gha-m-2" ]
+    branches: [ "main" ]
     paths:
       - "Mid-Level/GHA-M-2/**"
       - ".github/workflows/gha-m-2.yml"
@@ -27,9 +27,6 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
     env:
-      TF_CLOUD_ORGANIZATION: "db-solutions-org"        # TFC org
-      TF_WORKSPACE: "gha-m-2-workspace"                # TFC workspace
-      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}        # set > in GitHub repo secrets
       TF_IN_AUTOMATION: "true"
     steps:
       - name: Checkout repo
@@ -38,23 +35,24 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
+          terraform_version: 1.8.5
+          # injects TF Cloud token for app.terraform.io automatically
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Terraform Init
+      - name: Terraform Init (remote backend)
         working-directory: Mid-Level/GHA-M-2
-        run: terraform init
+        run: terraform init -input=false
 
       - name: Terraform Validate
         working-directory: Mid-Level/GHA-M-2
         run: terraform validate
 
-      - name: Terraform Plan
+      - name: Terraform Plan (PRs into main)
         if: github.event_name == 'pull_request'
         working-directory: Mid-Level/GHA-M-2
-        run: terraform plan -input=false
+        run: terraform plan -no-color -input=false
 
-      - name: Terraform Apply
+      - name: Terraform Apply (after merge to main)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         working-directory: Mid-Level/GHA-M-2
         run: terraform apply -auto-approve -input=false
-
