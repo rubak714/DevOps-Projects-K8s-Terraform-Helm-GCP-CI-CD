@@ -156,7 +156,7 @@ This confirms the Docker image was built, pushed and the Helm command was genera
 
 This allows GitHub Actions jobs from my repo to impersonate mid-level service account via WIF.
 
-## Prerequisites_1 > Enable APIs with gcloud
+### Prerequisites_1 > Enable APIs with gcloud
 
 ```bash
 PROJECT_ID=stable-healer-418019
@@ -173,7 +173,7 @@ gcloud services enable \
 
 ---
 
-## Prerequisites_2 > Created Artifact Registry repository
+### Prerequisites_2 > Created Artifact Registry repository
 
 ```bash
 PROJECT_ID=stable-healer-418019
@@ -190,14 +190,6 @@ if ! gcloud artifacts repositories describe ${REPO} --location=${REGION} >/dev/n
 else
   echo "Repository ${REPO} already exists in ${REGION}"
 fi
-
-# allowing the CI service account to push images
-PROJECT_ID=stable-healer-418019
-SA=mid-level@${PROJECT_ID}.iam.gserviceaccount.com
-
-gcloud projects add-iam-policy-binding ${PROJECT_ID} \
-  --member=serviceAccount:${SA} \
-  --role=roles/artifactregistry.writer
 
 ```
 
