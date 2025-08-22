@@ -241,6 +241,8 @@ Outputs:
 - Cluster endpoint
 - Node pool names
 
+![Terraform Output](outputs.png)
+
 ---
 
 ## Verification Notes
