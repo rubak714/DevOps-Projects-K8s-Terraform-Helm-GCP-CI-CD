@@ -243,6 +243,10 @@ Outputs:
 
 ![Terraform Output](outputs.png)
 
+```bash
+terraform destroy -auto-approve # to delete the GKE cluster and all associated node pools.
+```
+
 ---
 
 ## Verification Notes
