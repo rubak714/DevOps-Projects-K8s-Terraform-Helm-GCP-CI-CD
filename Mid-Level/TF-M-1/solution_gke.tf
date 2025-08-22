@@ -52,6 +52,8 @@ module "gke" {
   regional = false
   zones    = ["europe-west1-b"]  
 
+  deletion_protection = false
+
   # VPC native
   network           = google_compute_network.gke.name
   subnetwork        = google_compute_subnetwork.gke.name
