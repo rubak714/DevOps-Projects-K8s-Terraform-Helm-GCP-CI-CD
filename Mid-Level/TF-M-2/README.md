@@ -195,6 +195,10 @@ Outputs:
 
 ![Terraform Output](outputs.png)
 
+```bash
+terraform destroy -auto-approve # to delete the Secret Manager secret and its versions
+```
+
 ---
 
 ## Verification Notes
