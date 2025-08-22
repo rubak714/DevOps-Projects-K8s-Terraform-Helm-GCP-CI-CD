@@ -207,7 +207,8 @@ Outputs:
 
 ---
 
-## Additional: Hardcoding a secret value inside Terraform files was only shown for demonstration as instructed in the task description. In real scenarios, secret values should be loaded always from .tfvars files (excluded from git) or environment variables or simply .tfvars files should be kept in local machines only.
+## Additional
+Hardcoding a secret value inside Terraform files was only shown for demonstration as instructed in the task description. In real scenarios, secret values should be loaded always from .tfvars files (excluded from git) or environment variables or simply .tfvars files should be kept in local machines only.
 
 In this way, a functional **Google Secret Manager secret** was provisioned and fully managed by Terraform.
 
