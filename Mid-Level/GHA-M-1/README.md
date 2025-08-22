@@ -144,7 +144,7 @@ In the final **Simulate Helm deploy** step, the log shows a valid `helm upgrade`
 helm upgrade --install gha-m-1 bitnami/nginx \
   --set image.registry='europe-west3-docker.pkg.dev' \
   --set image.repository='stable-healer-418019/apps/gha-m-1-app' \
-  --set image.tag='sha-a1b2c3d4' \
+  --set image.tag='sha-441751b1' \
   --namespace default
 ```
 
