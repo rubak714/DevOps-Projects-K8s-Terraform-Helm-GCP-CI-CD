@@ -1,0 +1,36 @@
+# Default values for flask-helm-m1
+# This is a YAML-formatted file.
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+replicaCount: 2
+
+image:
+  # This sets the container image repository
+  # More info: https://kubernetes.io/docs/concepts/containers/images/
+  repository: gcr.io/PROJECT_ID_PLACEHOLDER/flask-helm-m1 # for gcp, will be overrided by --set flag
+  # This sets the image tag whose default is the chart appVersion.
+  tag: "1.0.0"
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: ClusterIP
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  port: 5000
+
+# Standard values below (can be simplified if needed)
+imagePullSecrets: []
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+securityContext: {}
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
