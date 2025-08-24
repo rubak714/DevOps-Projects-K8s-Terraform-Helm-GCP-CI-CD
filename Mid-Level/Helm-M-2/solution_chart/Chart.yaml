@@ -1,0 +1,6 @@
+apiVersion: v2
+name: flask-helm-m1
+description: Helm-M-2 extension of Helm-M-1 > conditional Ingress and external Secret placeholders
+type: application
+version: 0.2.0
+appVersion: "1.1.0"
