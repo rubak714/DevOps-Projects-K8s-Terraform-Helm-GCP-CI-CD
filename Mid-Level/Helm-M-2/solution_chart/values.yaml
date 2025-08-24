@@ -1,0 +1,44 @@
+# Default values for flask-helm-m1 (Helm-M-2 additions)
+
+replicaCount: 2
+
+image:
+  repository: gcr.io/PROJECT_ID_PLACEHOLDER/flask-helm-m1
+  tag: "1.1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+# Ingress is off by default. 
+ingress:
+  enabled: false
+  className: ""          # "nginx" or "gce"
+  annotations: {}         # kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+# placeholder env that will be read from an external Secret named "<fullname>-secrets"
+secretEnvKeys:
+  - name: API_KEY
+  - name: API_TOKEN
+
+# Standard sections carried over
+imagePullSecrets: []
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+securityContext: {}
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
