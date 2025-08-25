@@ -40,7 +40,7 @@ jobs:
 
       # Install gcloud SDK
       - name: Setup gcloud
-      - uses: google-github-actions/setup-gcloud@v2.1.0
+        uses: google-github-actions/setup-gcloud@v2.1.0
 
       # Install the GKE auth plugin and enable it
       - name: Install GKE auth plugin
