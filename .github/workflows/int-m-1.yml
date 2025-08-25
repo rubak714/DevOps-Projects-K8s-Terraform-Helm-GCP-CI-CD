@@ -10,8 +10,9 @@ permissions:
   contents: read
 
 env:
-  TF_DIR: ./Mid-Level/INT-M-1/solution_terraform
-  HELM_DIR: ./Mid-Level/INT-M-1/solution_helm
+  TF_DIR: ./Mid-Level/INT-M-1/solution_terraform # terraform directory
+  HELM_DIR: ./Mid-Level/INT-M-1/solution_helm # helm directory
+
   GCP_PROJECT: ${{ secrets.GCP_PROJECT_ID }}   
   REGION: europe-west1
   ZONE: europe-west1-b
