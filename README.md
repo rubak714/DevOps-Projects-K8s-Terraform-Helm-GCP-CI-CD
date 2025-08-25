@@ -116,7 +116,7 @@ git push -u origin feature/GHA-J-2
     - Yes: `helm template .` shows the label in the rendered Deployment manifest.
     - In short, added Pod label, bumped chart to 0.1.1, aligned appVersion to 1.25-alpine.
 
-  - `INT-J-1/solution_helm/helm-chart/` with a simple chart that exposes `GREETING_MESSAGE`
+  - `INT-J-1/solution_helm/helm-chart/` with a simple chart that exposed `GREETING_MESSAGE`
 
 - Terraform
   - `TF-J-1` and `TF-J-2` with bucket creation (with unique name) and output
