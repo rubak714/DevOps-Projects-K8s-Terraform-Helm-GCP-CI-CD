@@ -121,4 +121,8 @@ git push -u origin feature/GHA-J-2
 - Terraform
   - `TF-J-1` and `TF-J-2` with bucket creation (with unique name) and output
   - `INT-J-1` with bucket creation (with unique name) having `config/settings.txt` object inside
-  
+
+## References
+
+- https://alexanderhose.com/how-to-integrate-github-actions-with-google-cloud-platform/#:~:text=permissions%3A%20id
+- https://faun.pub/building-ci-cd-pipeline-with-github-action-63082aa0bd1d
