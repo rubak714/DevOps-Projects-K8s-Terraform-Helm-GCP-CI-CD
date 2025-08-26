@@ -78,6 +78,7 @@ jobs:
           fi
 
       # if the Terraform code exposes a GSM secret output, can capture it
+      # keep this conditional so the job does not fail when the TF module does not expose it
       - name: Export GSM secret name to env
         working-directory: ${{ env.TF_DIR }}
         run: |
@@ -100,16 +101,19 @@ jobs:
           gcloud secrets create "$GSM_SECRET_ID" --replication-policy="automatic" --project "$GCP_PROJECT"
 
       # Push the current API key from GitHub Secrets to GSM as > a new version.
+      # Fail fast if the GitHub Secret is missing
+      # Mask the value in the workflow logs, then add it as a new GSM version
       - name: Push latest API key to GSM
         run: |
           set -euo pipefail
-          if [[ -z "${{ secrets.API_KEY_VALUE }}" ]]; then
+          if [[ -z "${{ secrets.API_KEY_VALUE }}" ]]; then 
             echo "ERROR: secrets.API_KEY_VALUE is empty." >&2; exit 1
           fi
           printf "%s" "${{ secrets.API_KEY_VALUE }}" | \
             gcloud secrets versions add "$GSM_SECRET_ID" --data-file=- --project "$GCP_PROJECT"
 
       # Point kubectl > at the new cluster and pin the namespace for the rest of the job
+      # this avoids passing -n on every command and prevents cross-namespace updates
       - name: Configure kubectl
         run: |
           gcloud container clusters get-credentials "$CLUSTER" \
@@ -117,6 +121,11 @@ jobs:
           kubectl config set-context --current --namespace="$NAMESPACE"
 
       # Create/update the Kubernetes Secret from the latest GSM version
+      # fetch the latest value from GSM at deploy time and materialize it as a K8s Secret
+      # pull the current secret value from Google Secret Manager (latest)
+      # avoid echoing the value. I also mask it in the GHA logs
+      # create or update the Kubernetes Secret in-place.
+      # I use dry-run client to render YAML, then 'kubectl apply' for idempotency.
       - name: Create/Update Kubernetes Secret
         run: |
           VALUE=$(gcloud secrets versions access latest \
