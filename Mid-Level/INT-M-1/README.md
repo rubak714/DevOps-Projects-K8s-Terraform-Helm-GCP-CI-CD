@@ -483,3 +483,13 @@ INT-M-1 --- GKE with Secret and Istio
 - Helm applied the chart into the GKE cluster successfully.
 
 ---
+
+## References
+
+- https://alexanderhose.com/how-to-integrate-github-actions-with-google-cloud-platform/#:~:text=permissions%3A%20id
+- https://medium.com/@gravish316/setup-ci-cd-using-github-actions-to-deploy-to-google-kubernetes-engine-ef465a482fd
+- https://medium.com/@onefabulousginger/using-github-actions-to-deploy-to-gke-with-helm-81855414db0b
+- https://spacelift.io/blog/github-actions-kubernetes
+- https://medium.com/@ebohgoodness.e/what-it-takes-to-securely-deploy-a-microservice-application-on-kubernetes-using-gcp-terraform-afe794348bea
+- https://faun.pub/building-ci-cd-pipeline-with-github-action-63082aa0bd1d
+- https://medium.com/@armyost1/creating-typical-ci-cd-pipeline-with-gke-and-github-actions-8225cce9e4d4
