@@ -4,13 +4,13 @@
 *   **Verification:** Is the Terraform code valid? Does it define a GCS bucket with the required attributes?
 *   **Solution:** Place in: `/Junior/TF-J-1/solution_main.tf`
 
-# Task (TF-J-2): Use Terraform Output**
+# Task (TF-J-2): Use Terraform Output
 
 *   **Use Case:** Extend the Terraform code from TF-J-1 to output the name of the created GCS bucket using an `output` variable.
 *   **Verification:** Does `terraform output bucket_name` display the correct bucket name after applying?
 *   **Solution:** (Included in solution for TF-J-1) Place in: `/Junior/TF-J-1/solution_main.tf`
 
-# *Solutions: TF-J-1 and TF-J-2 — Create a unique GCS bucket and Terraform Output*
+# *Solutions: TF-J-1 and TF-J-2 > Create a unique GCS bucket and Terraform Output*
 
 ## Task Layout
 
