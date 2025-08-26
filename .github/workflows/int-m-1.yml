@@ -1,0 +1,144 @@
+name: INT-M-1 --- GKE with Secret and Istio
+
+on:
+  push:
+    branches: [ "chore/cleanup-terraform" ]
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  TF_DIR: ./Mid-Level/INT-M-1/solution_terraform # terraform directory
+  HELM_DIR: ./Mid-Level/INT-M-1/solution_helm # helm directory
+
+  GCP_PROJECT: ${{ secrets.GCP_PROJECT_ID }}   
+  REGION: europe-west1
+  ZONE: europe-west1-b
+  CLUSTER: int-m-1-gke
+  NAMESPACE: default
+  RELEASE: int-m-1
+  IMAGE_REPO: gcr.io/${{ secrets.GCP_PROJECT_ID }}/flask-int-m1
+  IMAGE_TAG: 1.0.0
+  GSM_SECRET_ID: api-key-secret
+  K8S_SECRET_NAME: app-secrets
+  K8S_SECRET_KEY: api-key
+
+jobs:
+  GKE_with_Secret_and_Istio:
+    runs-on: ubuntu-latest
+    steps:
+      # pulling repo contents
+      - uses: actions/checkout@v4
+
+      # Authenticate to GCP via OIDC 
+      - name: Auth to Google Cloud (WIF)
+        uses: google-github-actions/auth@v2.1.6
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
+
+      # Install gcloud SDK
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2.1.0
+
+      # Install the GKE auth plugin and enable it
+      - name: Install GKE auth plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin -q
+          echo "USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> "$GITHUB_ENV"
+
+      # Install kubectl and helm
+      - uses: azure/setup-kubectl@v4
+      - uses: azure/setup-helm@v4
+
+      # Install Terraform
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.0
+          terraform_wrapper: false
+
+      # Provision GKE with Terraform 
+      - name: Terraform init and apply
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          terraform init -upgrade
+          terraform apply -auto-approve \
+            -var "project_id=$GCP_PROJECT" \
+            -var "region=$REGION" \
+            -var "zone=$ZONE"
+
+      # Export Terraform outputs to the job environment when present 
+      - name: Export cluster name to env
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          if terraform output -raw cluster_name >/dev/null 2>&1; then
+            echo "CLUSTER=$(terraform output -raw cluster_name)" >> "$GITHUB_ENV"
+          fi
+
+      # if the Terraform code exposes a GSM secret output, can capture it
+      # keep this conditional so the job does not fail when the TF module does not expose it
+      - name: Export GSM secret name to env
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          if terraform output -raw secret_name >/dev/null 2>&1; then
+            echo "GSM_SECRET_ID=$(terraform output -raw secret_name)" >> "$GITHUB_ENV"
+          fi
+
+      # quick visibility to confirm that auth context and that Secret Manager is reachable.
+      - name: Debug GSM access
+        run: |
+          set -x
+          gcloud auth list
+          gcloud config list
+          gcloud secrets describe "$GSM_SECRET_ID" --project "$GCP_PROJECT" || true
+
+      # Ensure the Secret Manager secret exists. This is idempotent>>> describe/create
+      - name: Ensure secret exists (idempotent)
+        run: |
+          gcloud secrets describe "$GSM_SECRET_ID" --project "$GCP_PROJECT" >/dev/null 2>&1 || \
+          gcloud secrets create "$GSM_SECRET_ID" --replication-policy="automatic" --project "$GCP_PROJECT"
+
+      # Push the current API key from GitHub Secrets to GSM as > a new version.
+      # Fail fast if the GitHub Secret is missing
+      # Mask the value in the workflow logs, then add it as a new GSM version
+      - name: Push latest API key to GSM
+        run: |
+          set -euo pipefail
+          if [[ -z "${{ secrets.API_KEY_VALUE }}" ]]; then 
+            echo "ERROR: secrets.API_KEY_VALUE is empty." >&2; exit 1
+          fi
+          printf "%s" "${{ secrets.API_KEY_VALUE }}" | \
+            gcloud secrets versions add "$GSM_SECRET_ID" --data-file=- --project "$GCP_PROJECT"
+
+      # Point kubectl > at the new cluster and pin the namespace for the rest of the job
+      # this avoids passing -n on every command and prevents cross-namespace updates
+      - name: Configure kubectl
+        run: |
+          gcloud container clusters get-credentials "$CLUSTER" \
+            --zone "$ZONE" --project "$GCP_PROJECT"
+          kubectl config set-context --current --namespace="$NAMESPACE"
+
+      # Create/update the Kubernetes Secret from the latest GSM version
+      # fetch the latest value from GSM at deploy time and materialize it as a K8s Secret
+      # pull the current secret value from Google Secret Manager (latest)
+      # avoid echoing the value. I also mask it in the GHA logs
+      # create or update the Kubernetes Secret in-place.
+      # I use dry-run client to render YAML, then 'kubectl apply' for idempotency.
+      - name: Create/Update Kubernetes Secret
+        run: |
+          VALUE=$(gcloud secrets versions access latest \
+            --secret="$GSM_SECRET_ID" --project "$GCP_PROJECT")
+          kubectl create secret generic "$K8S_SECRET_NAME" \
+            --from-literal "$K8S_SECRET_KEY=$VALUE" \
+            --namespace "$NAMESPACE" \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      # Deploy/upgrade the app via Helm. I override only repo and tag here
+      - name: Helm deploy
+        run: |
+          helm upgrade --install "$RELEASE" "$HELM_DIR" \
+            --namespace "$NAMESPACE" \
+            --set image.repository="$IMAGE_REPO" \
+            --set image.tag="$IMAGE_TAG"
