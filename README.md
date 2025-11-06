@@ -1,4 +1,4 @@
-# Deutsche Bank Merchant Solutions – Junior Position Solutions 
+# DevOps Real-time Problems and Solutions 
 
 This repository contains Junior level solutions. I kept the task copies in `Junior/*` for submission and placed runnable GitHub Actions under `.github/workflows/`, so it can be tested in GitHub Actions CI in a private repo.
 
